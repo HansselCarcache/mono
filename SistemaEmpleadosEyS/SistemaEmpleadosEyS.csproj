@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{87B52CF0-B12D-4583-A4E3-46EFEB14323C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SistemaEmpleadosEyS</RootNamespace>
+    <AssemblyName>SistemaEmpleadosEyS</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="gtk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="glib-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <Package>glib-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="glade-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="pango-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="atk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="Mono.Posix" />
+    <Reference Include="MySql.Data.EntityFramework">
+      <HintPath>mysql-connector-net-8.0.28-noinstall\v4.5.2\MySql.Data.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>mysql-connector-net-8.0.28-noinstall\v4.5.2\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="gtk-gui\gui.stetic">
+      <LogicalName>gui.stetic</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="gtk-gui\generated.cs" />
+    <Compile Include="MainWindow.cs" />
+    <Compile Include="gtk-gui\MainWindow.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Entrada y Salida.cs" />
+    <Compile Include="gtk-gui\SistemaEmpleadosEyS.Entrada_y_Salida.cs" />
+    <Compile Include="MenuAdministrador.cs" />
+    <Compile Include="gtk-gui\SistemaEmpleadosEyS.MenuAdministrador.cs" />
+    <Compile Include="ReporteEmpleados.cs" />
+    <Compile Include="gtk-gui\SistemaEmpleadosEyS.ReporteEmpleados.cs" />
+    <Compile Include="GestionEmpleados.cs" />
+    <Compile Include="gtk-gui\SistemaEmpleadosEyS.GestionEmpleados.cs" />
+    <Compile Include="Datos\Conexion.cs" />
+    <Compile Include="Datos\DT_tbl_Empleado.cs" />
+    <Compile Include="Entidades\tbl_empleado.cs" />
+    <Compile Include="ReporteCargo.cs" />
+    <Compile Include="gtk-gui\SistemaEmpleadosEyS.ReporteCargo.cs" />
+    <Compile Include="Datos\DT_tbl_Cargo.cs" />
+    <Compile Include="Entidades\tbl_cargo.cs" />
+    <Compile Include="GestionDepartamentos.cs" />
+    <Compile Include="gtk-gui\SistemaEmpleadosEyS.GestionDepartamentos.cs" />
+    <Compile Include="Datos\DT_tbl_Departamento.cs" />
+    <Compile Include="Entidades\tbl_departamento.cs" />
+    <Compile Include="AsignarCargo.cs" />
+    <Compile Include="gtk-gui\SistemaEmpleadosEyS.AsignarCargo.cs" />
+    <Compile Include="Entidades\tbl_cargoEmpleado.cs" />
+    <Compile Include="Entidades\vwCargoEmpleado.cs" />
+    <Compile Include="Datos\DT_tbl_CargoEmpleado.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Datos\" />
+    <Folder Include="Entidades\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
