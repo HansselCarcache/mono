@@ -35,7 +35,7 @@ namespace SistemaEmpleadosEyS
             }
 
             ListStore listaCargo = dtce.listCargos();
-            for (int i = 0; i < listaEmpleado.IterNChildren(); i++)
+            for (int i = 0; i < listaCargo.IterNChildren(); i++)
             {
                 TreeIter iter;
                 listaCargo.GetIterFromString(out iter, i.ToString());
@@ -50,22 +50,37 @@ namespace SistemaEmpleadosEyS
         protected void OnBtnGuardarClicked(object sender, EventArgs e)
         {
 
-            int idcar = getIDCargo();
-            int idemp = getIDEmpleado();
-
-            tce.idCargo = idcar;
-            tce.idEmpleados = idemp;
-
-            if (dtce.guardarCargEmpleado(tce))
+            if (this.cbxCargo.Active == -1 || this.cbxEmpleado.Active == -1 )
             {
-                Console.WriteLine("Se guardaron los datos sin problemas!");
-                this.tvACargo.Model = dtce.listaCargoEmpleado();
-
+                ms = new MessageDialog(null, DialogFlags.Modal,
+                        MessageType.Error, ButtonsType.Ok, "Asegurese de elegir un empleado y un cargo.");
+                ms.Run();
+                ms.Destroy();
             }
             else
             {
-                Console.WriteLine("Ocurrió un Error");
+                int idcar = getIDCargo();
+                int idemp = getIDEmpleado();
+
+                tce.idCargo = idcar;
+                tce.idEmpleados = idemp;
+
+                if (dtce.guardarCargEmpleado(tce))
+                {
+                    Console.WriteLine("Se guardaron los datos sin problemas!");
+                    ms = new MessageDialog(null, DialogFlags.Modal,
+                        MessageType.Info, ButtonsType.Ok, "Se han guardado los datos con éxito ");
+                    ms.Run();
+                    ms.Destroy();
+                    this.tvACargo.Model = dtce.listaCargoEmpleado();
+
+                }
+                else
+                {
+                    Console.WriteLine("Ocurrió un Error");
+                }
             }
+
         }
 
         public void cargarTabla()
@@ -142,7 +157,13 @@ namespace SistemaEmpleadosEyS
         public void limpiarCampos()
         {
             this.txtID.Text = "";
+            this.cbxCargo.Active = -1;
+            this.cbxEmpleado.Active = -1;
+
+
         }
+
+
 
         public int getIDEmpleado()
         {
@@ -203,52 +224,96 @@ namespace SistemaEmpleadosEyS
 
         protected void OnBtnEditarClicked(object sender, EventArgs e)
         {
-            tce.idCargosEmpleado = Convert.ToInt32(this.txtID.Text.Trim());
-            tce.idCargo = getIDCargo();
-            tce.idEmpleados = getIDEmpleado();
-
-
-            if (dtce.editarCargoEmpleado(tce))
+            if (this.cbxCargo.Active == -1 || this.cbxEmpleado.Active == -1 || this.txtID.Text == "")
             {
                 ms = new MessageDialog(null, DialogFlags.Modal,
-                    MessageType.Info, ButtonsType.Ok, "Datos actualizados");
+                        MessageType.Error, ButtonsType.Ok, "Asegurese que los 3 campos no estén vacíos.");
                 ms.Run();
                 ms.Destroy();
-                limpiarCampos();
-                this.tvACargo.Model = dtce.listaCargoEmpleado();
             }
             else
             {
-                ms = new MessageDialog(null, DialogFlags.Modal,
-                    MessageType.Error, ButtonsType.Ok,
-                    "Error al editar datos");
-                ms.Run();
-                ms.Destroy();
+                tce.idCargosEmpleado = Convert.ToInt32(this.txtID.Text.Trim());
+                tce.idCargo = getIDCargo();
+                tce.idEmpleados = getIDEmpleado();
+
+
+                if (dtce.editarCargoEmpleado(tce))
+                {
+                    ms = new MessageDialog(null, DialogFlags.Modal,
+                        MessageType.Info, ButtonsType.Ok, "Datos actualizados");
+                    ms.Run();
+                    ms.Destroy();
+                    limpiarCampos();
+                    this.tvACargo.Model = dtce.listaCargoEmpleado();
+                }
+                else
+                {
+                    ms = new MessageDialog(null, DialogFlags.Modal,
+                        MessageType.Error, ButtonsType.Ok,
+                        "Error al editar datos");
+                    ms.Run();
+                    ms.Destroy();
+                }
             }
+
         }
 
         protected void OnBtnEliminarClicked(object sender, EventArgs e)
         {
-            tce.idCargosEmpleado = Convert.ToInt32(this.txtID.Text.Trim());
 
-            if (dtce.eliminarCargoEmpleado(tce))
+            if (this.cbxCargo.Active == -1 || this.cbxEmpleado.Active == -1 || this.txtID.Text == "")
             {
                 ms = new MessageDialog(null, DialogFlags.Modal,
-                    MessageType.Info, ButtonsType.Ok, "Datos eliminados");
+                        MessageType.Error, ButtonsType.Ok, "Asegurese que los 3 campos no estén vacíos.");
                 ms.Run();
                 ms.Destroy();
-                limpiarCampos();
-
-                this.tvACargo.Model = dtce.listaCargoEmpleado();
             }
             else
             {
+                tce.idCargosEmpleado = Convert.ToInt32(this.txtID.Text.Trim());
                 ms = new MessageDialog(null, DialogFlags.Modal,
-                    MessageType.Error, ButtonsType.Ok,
-                    "Error al eliminar datos");
-                ms.Run();
+                        MessageType.Info, ButtonsType.YesNo, "¿Estás seguro que deseas eliminar los datos?");
+
+                bool result = (ResponseType)ms.Run() == ResponseType.Yes;
                 ms.Destroy();
+
+                if (result)
+                {
+                    if (dtce.eliminarCargoEmpleado(tce))
+                    {
+                        ms = new MessageDialog(null, DialogFlags.Modal,
+                            MessageType.Info, ButtonsType.Ok, "Datos eliminados");
+                        ms.Run();
+                        ms.Destroy();
+                        limpiarCampos();
+
+                        this.tvACargo.Model = dtce.listaCargoEmpleado();
+                    }
+                    else
+                    {
+                        ms = new MessageDialog(null, DialogFlags.Modal,
+                            MessageType.Error, ButtonsType.Ok,
+                            "Error al eliminar datos");
+                        ms.Run();
+                        ms.Destroy();
+                    }
+                }
+                else
+                {
+                    ms = new MessageDialog(null, DialogFlags.Modal,
+                           MessageType.Info, ButtonsType.Ok, "No se eliminaron los datos");
+                    ms.Run();
+                    ms.Destroy();
+                }
             }
+
+
+        }
+
+        protected void OnBtnLimpiarClicked(object sender, EventArgs e)
+        {
+            limpiarCampos();
         }
     }
 

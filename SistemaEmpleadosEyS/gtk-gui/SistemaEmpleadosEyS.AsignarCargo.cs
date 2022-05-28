@@ -34,6 +34,8 @@ namespace SistemaEmpleadosEyS
 
 		private global::Gtk.Button btnEliminar;
 
+		private global::Gtk.Button btnLimpiar;
+
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 
 		private global::Gtk.TreeView tvACargo;
@@ -47,7 +49,6 @@ namespace SistemaEmpleadosEyS
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Container child SistemaEmpleadosEyS.AsignarCargo.Gtk.Container+ContainerChild
 			this.vbox1 = new global::Gtk.VBox();
-			this.vbox1.Name = "vbox1";
 			this.vbox1.Spacing = 6;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.titulo = new global::Gtk.Label();
@@ -173,11 +174,22 @@ namespace SistemaEmpleadosEyS
 			w13.Position = 2;
 			w13.Expand = false;
 			w13.Fill = false;
-			this.vbox1.Add(this.hbox2);
-			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox2]));
-			w14.Position = 4;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.btnLimpiar = new global::Gtk.Button();
+			this.btnLimpiar.CanFocus = true;
+			this.btnLimpiar.Name = "btnLimpiar";
+			this.btnLimpiar.UseUnderline = true;
+			this.btnLimpiar.Label = global::Mono.Unix.Catalog.GetString("Limpiar campos");
+			this.hbox2.Add(this.btnLimpiar);
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.btnLimpiar]));
+			w14.Position = 3;
 			w14.Expand = false;
 			w14.Fill = false;
+			this.vbox1.Add(this.hbox2);
+			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox2]));
+			w15.Position = 4;
+			w15.Expand = false;
+			w15.Fill = false;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow();
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
@@ -188,9 +200,9 @@ namespace SistemaEmpleadosEyS
 			this.tvACargo.Name = "tvACargo";
 			this.GtkScrolledWindow.Add(this.tvACargo);
 			this.vbox1.Add(this.GtkScrolledWindow);
-			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.GtkScrolledWindow]));
-			w16.PackType = ((global::Gtk.PackType)(1));
-			w16.Position = 5;
+			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.GtkScrolledWindow]));
+			w17.PackType = ((global::Gtk.PackType)(1));
+			w17.Position = 5;
 			this.Add(this.vbox1);
 			if ((this.Child != null))
 			{
@@ -202,6 +214,7 @@ namespace SistemaEmpleadosEyS
 			this.btnGuardar.Clicked += new global::System.EventHandler(this.OnBtnGuardarClicked);
 			this.btnEditar.Clicked += new global::System.EventHandler(this.OnBtnEditarClicked);
 			this.btnEliminar.Clicked += new global::System.EventHandler(this.OnBtnEliminarClicked);
+			this.btnLimpiar.Clicked += new global::System.EventHandler(this.OnBtnLimpiarClicked);
 			this.tvACargo.CursorChanged += new global::System.EventHandler(this.OnTvACargoCursorChanged);
 		}
 	}
